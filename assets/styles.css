@@ -1,0 +1,312 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   LAINES DASHBOARD — Design System
+   Paleta: TelevisaUnivision — tono corporativo
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+/* ── Variables ──────────────────────────────────────────────────────────── */
+:root {
+  /* Paleta de marca — muted/corporativo */
+  --yellow:      #C8861A;
+  --orange:      #C04E1E;
+  --coral:       #A82045;
+  --fuchsia:     #901A72;
+  --purple:      #6A158A;
+
+  /* Fondos */
+  --bg:          #F0EEF6;
+  --bg-card:     #FFFFFF;
+  --bg-card-alt: #F8F6FC;
+
+  /* Header oscuro */
+  --header-bg:   #2A0D4A;
+  --header-text: #FFFFFF;
+
+  /* Texto */
+  --text-primary:   #1A0A2E;
+  --text-secondary: #5A4878;
+  --text-muted:     #9A88B8;
+
+  /* UI */
+  --border:      #E2DCF0;
+  --radius:      10px;
+  --radius-sm:   6px;
+  --shadow:      0 2px 12px rgba(42, 13, 74, 0.10);
+  --shadow-sm:   0 1px 4px  rgba(42, 13, 74, 0.07);
+
+  --gradient-brand: linear-gradient(90deg, var(--yellow), var(--orange), var(--coral), var(--fuchsia), var(--purple));
+}
+
+/* ── Reset & Base ───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── Wrapper principal ──────────────────────────────────────────────────── */
+.dashboard-wrapper {
+  min-height: 100vh;
+  background-color: var(--bg);
+}
+
+/* ── Slide (página) ─────────────────────────────────────────────────────── */
+.slide {
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.dashboard-header {
+  background-color: var(--header-bg);
+  padding: 18px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 3px solid transparent;
+  border-image: var(--gradient-brand) 1;
+}
+
+.header-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--header-text);
+  margin: 0;
+}
+
+.header-subtitle {
+  color: rgba(255,255,255,0.55);
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ── Contenido del slide ────────────────────────────────────────────────── */
+.slide-body {
+  padding: 24px 32px;
+  flex: 1;
+}
+
+/* ── Fila de KPIs ───────────────────────────────────────────────────────── */
+.kpi-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.kpi-row > * {
+  flex: 1 1 150px;
+}
+
+/* ── Card base ──────────────────────────────────────────────────────────── */
+.card-clean {
+  background-color: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-clean::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--border);
+}
+
+.card-clean:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.card-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.card-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.card-delta {
+  font-size: 11px;
+  margin-top: 5px;
+  color: var(--text-muted);
+}
+
+.card-delta.up   { color: #1E8A4A; }
+.card-delta.down { color: var(--coral); }
+
+/* ── Variantes de color (barra + hover) ─────────────────────────────────── */
+.card-yellow::before  { background: var(--yellow); }
+.card-yellow:hover    { box-shadow: 0 4px 16px rgba(200,134,26,0.18); }
+
+.card-orange::before  { background: var(--orange); }
+.card-orange:hover    { box-shadow: 0 4px 16px rgba(192,78,30,0.18); }
+
+.card-coral::before   { background: var(--coral); }
+.card-coral:hover     { box-shadow: 0 4px 16px rgba(168,32,69,0.18); }
+
+.card-fuchsia::before { background: var(--fuchsia); }
+.card-fuchsia:hover   { box-shadow: 0 4px 16px rgba(144,26,114,0.18); }
+
+.card-purple::before  { background: var(--purple); }
+.card-purple:hover    { box-shadow: 0 4px 16px rgba(106,21,138,0.18); }
+
+.card-dark {
+  background-color: var(--bg-card-alt);
+  border-color: var(--border);
+}
+
+/* ── Variantes filled ────────────────────────────────────────────────────── */
+.card-filled-yellow  { background-color: var(--yellow);  border-color: transparent; color: #fff; box-shadow: 0 2px 12px rgba(200,134,26,0.30); }
+.card-filled-orange  { background-color: var(--orange);  border-color: transparent; color: #fff; box-shadow: 0 2px 12px rgba(192,78,30,0.30); }
+.card-filled-coral   { background-color: var(--coral);   border-color: transparent; color: #fff; box-shadow: 0 2px 12px rgba(168,32,69,0.30); }
+.card-filled-fuchsia { background-color: var(--fuchsia); border-color: transparent; color: #fff; box-shadow: 0 2px 12px rgba(144,26,114,0.30); }
+.card-filled-purple  { background-color: var(--purple);  border-color: transparent; color: #fff; box-shadow: 0 2px 12px rgba(106,21,138,0.30); }
+
+.card-filled-yellow::before,
+.card-filled-orange::before,
+.card-filled-coral::before,
+.card-filled-fuchsia::before,
+.card-filled-purple::before { display: none; }
+
+.card-filled-yellow .card-label,
+.card-filled-orange .card-label,
+.card-filled-coral .card-label,
+.card-filled-fuchsia .card-label,
+.card-filled-purple .card-label { color: rgba(255,255,255,0.70); }
+
+.card-filled-yellow .card-value,
+.card-filled-orange .card-value,
+.card-filled-coral .card-value,
+.card-filled-fuchsia .card-value,
+.card-filled-purple .card-value { color: #fff; }
+
+/* ── Card con gradiente completo (hero) ─────────────────────────────────── */
+.card-gradient {
+  background: var(--gradient-brand);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: 0 4px 20px rgba(144,26,114,0.25);
+  border: none;
+}
+
+.card-gradient .card-label { color: rgba(255,255,255,0.75); }
+.card-gradient .card-value { color: #fff; }
+
+/* ── Contenedor de gráficas ─────────────────────────────────────────────── */
+.chart-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+
+.chart-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Tabla ──────────────────────────────────────────────────────────────── */
+.table-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+
+.table-header-band {
+  background-color: var(--header-bg);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 10px 18px;
+  text-align: center;
+}
+
+/* ── Divider ────────────────────────────────────────────────────────────── */
+.divider-brand {
+  height: 2px;
+  background: var(--gradient-brand);
+  border: none;
+  border-radius: 2px;
+  margin: 20px 0;
+  opacity: 0.5;
+}
+
+/* ── Badges ─────────────────────────────────────────────────────────────── */
+.badge-yellow  { background: rgba(200,134,26,0.12); color: var(--yellow);  border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 600; }
+.badge-orange  { background: rgba(192,78,30,0.12);  color: var(--orange);  border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 600; }
+.badge-coral   { background: rgba(168,32,69,0.12);  color: var(--coral);   border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 600; }
+.badge-fuchsia { background: rgba(144,26,114,0.12); color: var(--fuchsia); border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 600; }
+.badge-purple  { background: rgba(106,21,138,0.12); color: var(--purple);  border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 600; }
+
+/* ── Card Header (dbc.CardHeader) ───────────────────────────────────────── */
+.card-header {
+  background-color: var(--bg-card-alt) !important;
+  border-bottom: 2px solid var(--border) !important;
+  padding: 12px 18px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.07em !important;
+  color: var(--text-secondary) !important;
+}
+
+/* Header oscuro */
+.card-header-dark {
+  background-color: var(--header-bg) !important;
+  border-bottom: none !important;
+  color: #fff !important;
+}
+
+/* Header con línea de color */
+.card-header-yellow  { border-bottom-color: var(--yellow)  !important; }
+.card-header-orange  { border-bottom-color: var(--orange)  !important; }
+.card-header-coral   { border-bottom-color: var(--coral)   !important; }
+.card-header-fuchsia { border-bottom-color: var(--fuchsia) !important; }
+.card-header-purple  { border-bottom-color: var(--purple)  !important; }
+
+/* Header con gradiente de marca */
+.card-header-brand {
+  background-color: var(--header-bg) !important;
+  border-bottom: 3px solid transparent !important;
+  border-image: var(--gradient-brand) 1 !important;
+  color: #fff !important;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--fuchsia); }
