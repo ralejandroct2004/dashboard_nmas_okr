@@ -1,0 +1,29 @@
+{
+  "tipo_formato": {
+    "1": "LIVER (Enlace en vivo)",
+    "2": "LOT (Falso vivo)",
+    "3": "VO (Texto + Imagen)",
+    "4": "SOT (Inserto)",
+    "5": "VO+SOT (Texto + Inserto)",
+    "6": "PKG (Nota)",
+    "7": "BROLL (Aspectos sin info)"
+  },
+  "clasificacion": {
+    "0": "Política",
+    "1": "Color / Historia"
+  },
+  "programa": {
+    "1": "Primer Impacto",
+    "2": "Noticiero Nacional (6:30)",
+    "3": "Edición Nocturna",
+    "4": "Edición Digital / LVDLM",
+    "5": "Al Minuto",
+    "6": "Conectados",
+    "7": "Línea de Fuego",
+    "8": "Primetime",
+    "9": "A Esta Hora",
+    "10": "Noticiero Fin de Semana Tarde",
+    "11": "Noticiero Fin de Semana Noche",
+    "12": "El gordo y la flaca"
+  }
+}
