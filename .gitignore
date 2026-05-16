@@ -1,0 +1,7 @@
+credentials_sheets.json
+data/
+__pycache__/
+*.pyc
+*.pyo
+*.ipynb
+.env
