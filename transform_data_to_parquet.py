@@ -132,7 +132,7 @@ def main():
         create_parquet_general(df_sheet, formato_cols, programa_cols, today)
 
     if not os.path.exists(f'data/OKR_data_note_{today}.parquet'):
-        file = next((file for file in os.listdir('data/') if 'OKR_data' in file), None)
+        file = next((file for file in os.listdir('data/') if 'OKR_data_note' in file), None)
         if file is not None:
             os.remove(f'data/{file}')
         if df_sheet is None:
