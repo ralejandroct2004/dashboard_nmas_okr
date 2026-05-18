@@ -48,12 +48,7 @@ def connect_with_sheets():
 
 # ==================================================================
 
-today = datetime.datetime.now().strftime('%d%m%Y')
-
-def create_parquet():
-    global today
-
-    df_sheet, formato_cols, programa_cols = connect_with_sheets()
+def create_parquet_general(df_sheet, formato_cols, programa_cols, today):
     conn = duckdb.connect()
     conn.register("df_sheet", df_sheet)
 
@@ -105,13 +100,45 @@ def create_parquet():
 
     conn.close()
 
+# ==================================================================
+
+def create_parquet_note(df_sheet, today):
+    conn = duckdb.connect()
+    conn.register("df_sheet", df_sheet)
+
+    conn.execute(
+        f""" 
+        COPY(
+            SELECT * FROM df_sheet
+        )
+        TO 'data/OKR_data_note_{today}.parquet' (FORMAT PARQUET)
+        """
+    )
+
+    conn.close()
+
+# ==================================================================
+
 def main():
+    today = datetime.datetime.now().strftime('%d%m%Y')
+    df_sheet = None
+
     if not os.path.exists(f'data/OKR_data_{today}.parquet'):
         file = next((file for file in os.listdir('data/') if 'OKR_data' in file), None)
         if file is not None:
             os.remove(f'data/{file}')
-            
-        create_parquet()
+        df_sheet, formato_cols, programa_cols = connect_with_sheets()
+
+        create_parquet_general(df_sheet, formato_cols, programa_cols, today)
+
+    if not os.path.exists(f'data/OKR_data_note_{today}.parquet'):
+        file = next((file for file in os.listdir('data/') if 'OKR_data' in file), None)
+        if file is not None:
+            os.remove(f'data/{file}')
+        if df_sheet is None:
+            df_sheet, _, _ = connect_with_sheets()
+        
+        create_parquet_note(df_sheet, today)
 
 if __name__ == "__main__":
     main()

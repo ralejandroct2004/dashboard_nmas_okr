@@ -16,6 +16,8 @@ df_m, df_t = get_months_and_quarters_with_data()
 df_t_nt_mes = get_transmitidas_y_rechazadas_por_mes()
 fig_t_nt_mes = fig_transmitidas_y_rechazadas_por_mes(df_t_nt_mes)
 
+df_semanas = get_ultimas_5_semanas()
+
 # ── Layout ────────────────────────────────────────────────────────────────────
 layout = html.Div(
     [
@@ -195,6 +197,73 @@ layout = html.Div(
                 , style = {'flex': '1'}
                 , className = 'card-clean card-coral fade-in')
             , style = {'display': 'flex', 'flex': '1', 'height': '600px'})
+        , style = {'display': 'flex', 'flex': '1'}),
+# ====================================
+        dbc.Row(
+            dbc.Col(
+                dbc.Card(
+                    dbc.CardBody(
+                        'Formatos y programas'
+                    , style = {'padding': '0', 'flex': '1', 'display': 'flex', 'textAlign': 'center', 'alignItems': 'center', 'justifyContent': 'center', 'fontSize': '20px', 'fontWeight': '800'})
+                , style = {'flex': '1', 'display': 'flex'}
+                , className = 'card-filled-coral')
+            , style = {'display': 'flex', 'flex': '1'})
+        , style = {'height': '75px', 'display': 'flex', 'flexDirection': 'column'}),
+# ====================================
+        dbc.Row(
+            [
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardHeader(html.Div('Peticiones por programa'), style = {'textAlign': 'center'}),
+                            dcc.Graph(
+                                id = 'peticiones_por_programa_plot',
+                                figure = get_empty_fig(),
+                                config = {'responsive': True, 'displayModeBar': False},
+                                style = {'height': '100%', 'weight': '100%'},
+                            )
+                        ]
+                    , style = {'flex': '1'}
+                    , className = 'card-clean card-coral fade-in')
+                , style = {'display': 'flex', 'flex': '1', 'height': '600px'}),
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardHeader(html.Div('Formato de peticiones'), style = {'textAlign': 'center'}),
+                            dcc.Graph(
+                                id = 'formato_de_peticiones_plot',
+                                figure = get_empty_fig(),
+                                config = {'responsive': True, 'displayModeBar': False},
+                                style = {'height': '100%', 'weight': '100%'},
+                            )
+                        ]
+                    , style = {'flex': '1'}
+                    , className = 'card-clean card-coral fade-in')
+                , style = {'display': 'flex', 'flex': '1', 'height': '600px'}),
+                dbc.Col(
+                    [
+                        html.Div(
+                            [
+                                html.Label(html.Div('Seleccione semana'), style = {'textAlign': 'center'}),
+                                dbc.Card(
+                                    dcc.Dropdown(
+                                        id = 'formatos_y_programas_dd',
+                                        options = [
+                                            {'label': f'Semana {s}', 'value': s}
+                                        for s in df_semanas['semana']],
+                                        value = None,
+                                        clearable = False,
+                                        placeholder = 'Seleccione valor'
+                                    , style = {'flex': '1'}
+                                    , className = 'dropdown-brand')
+                                , style = {'flex': '1', 'padding': '3px'}
+                                , className = 'card-filled-fuchsia'),
+                            ]
+                        , style = {'flex': '0 0 calc(10% - 8px)', 'display': 'flex', 'flexDirection': 'column', 'gap': '5px'}),
+                        dbc.Card(style = {'flex': '0 0 calc(90% - 8px)'}, className = 'card-invisible')
+                    ]
+                , style = {'display': 'flex', 'flex': '1', 'flexDirection': 'column','height': '600px', 'gap': '16px'})
+            ]
         , style = {'display': 'flex', 'flex': '1'})
 # ====================================
     ]
@@ -292,3 +361,17 @@ def update_politicas_y_no_politicas_plot(type_, value, value_options):
     )
 
 # ====================================
+
+@dash.callback(
+    Output('formato_de_peticiones_plot', 'figure'),
+    Output('peticiones_por_programa_plot', 'figure'),
+    Input('formatos_y_programas_dd', 'value')
+)
+def update_formatos_y_programa_plot(semana):
+    df1 = get_peticiones_por_programa(semana)
+    fig1 = fig_peticiones_por_programa(df1)
+
+    df2 = get_formato_de_peticiones(semana)
+    fig2 = fig_formato_de_peticiones(df2)
+
+    return fig1, fig2

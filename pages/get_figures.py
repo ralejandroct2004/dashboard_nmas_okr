@@ -93,6 +93,8 @@ def fig_politicas_y_no_politicas(df):
 
     return fig
 
+# ====================================
+
 def fig_transmitidas_y_rechazadas_por_mes(df):
     df_add = pd.DataFrame([{'mes': m, 'transmitidas': 0, 'rechazadas': 0} for m in range(df['mes'].max() + 1, 13)])
     df = pd.concat([df, df_add]).reset_index(drop=True)
@@ -141,4 +143,98 @@ def fig_transmitidas_y_rechazadas_por_mes(df):
         margin = dict(t = 35, b = 5, r = 5, l = 5)
     )
     
+    return fig
+
+# ====================================
+
+def fig_peticiones_por_programa(df):
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Bar(
+            x=df['peticiones'],
+            y=df['programa'],
+            orientation='h',
+            marker=dict(color='#e24b4a', line=dict(color='white', width=0.5)),
+            hovertemplate='<b>%{y}</b><br>Materiales: %{x}<extra></extra>',
+            text=df['peticiones'],
+            textposition='outside',
+            textfont=dict(size=13, color='#444'),
+            name = 'Pedidas'
+        )
+    )
+
+    fig.add_trace(
+        go.Bar(
+            x=df['transmitidas'],
+            y=df['programa'],
+            orientation='h',
+            name='Transmitidas',
+            marker=dict(color='#185fa5', line=dict(color='white', width=0.5)),
+            hovertemplate='<b>%{y}</b><br>Transmitidas: %{x}<extra></extra>',
+            text=df['transmitidas'],
+            textposition='outside',
+            textfont=dict(size=13, color='#444')
+        )
+    )
+
+    fig.update_layout(
+        barmode='group',
+        xaxis=dict(showgrid=True, gridcolor='#f0f0f0', showticklabels=False, zeroline=False),
+        yaxis=dict(title='', autorange='reversed', tickfont=dict(size=13, color='#333')),
+        legend=dict(orientation='v', x=0.7, xanchor='left', y=0, yanchor='middle'),
+        bargap=0.35,
+        bargroupgap=0.1,
+        margin=dict(t=5, b=5, l=5, r=5),
+        paper_bgcolor='white',
+        plot_bgcolor='white',
+    )
+
+    return fig
+
+# ====================================
+
+def fig_formato_de_peticiones(df):
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Bar(
+            x=df['peticiones'],
+            y=df['formato'],
+            orientation='h',
+            marker=dict(color='#e24b4a', line=dict(color='white', width=0.5)),
+            hovertemplate='<b>%{y}</b><br>Materiales: %{x}<extra></extra>',
+            text=df['peticiones'],
+            textposition='outside',
+            textfont=dict(size=13, color='#444'),
+            name = 'Pedidas'
+        )
+    )
+
+    fig.add_trace(
+        go.Bar(
+            x=df['transmitidas'],
+            y=df['formato'],
+            orientation='h',
+            name='Transmitidas',
+            marker=dict(color='#185fa5', line=dict(color='white', width=0.5)),
+            hovertemplate='<b>%{y}</b><br>Transmitidas: %{x}<extra></extra>',
+            text=df['transmitidas'],
+            textposition='outside',
+            textfont=dict(size=13, color='#444')
+        )
+    )
+
+    fig.update_layout(
+        barmode='group',
+        xaxis=dict(showgrid=True, gridcolor='#f0f0f0', showticklabels=False, zeroline=False),
+        yaxis=dict(title='', autorange='reversed', tickfont=dict(size=13, color='#333')),
+        legend=dict(orientation='v', x=0.7, xanchor='left', y=0, yanchor='middle'),
+        bargap=0.35,
+        bargroupgap=0.1,
+        margin=dict(t=5, b=5, l=5, r=5),
+        paper_bgcolor='white',
+        plot_bgcolor='white',
+    )
+
     return fig
