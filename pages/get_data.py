@@ -17,7 +17,7 @@ if file is None:
 conn = duckdb.connect()
 lock = threading.Lock() 
 
-with open('data/encode_columns.json', 'r') as f:
+with open('data/encode_columns.json', 'r', encoding = 'utf-8') as f:
     encodes = json.load(f)
 
 # ====================================
