@@ -66,26 +66,38 @@ body {
 /* ── Header ─────────────────────────────────────────────────────────────── */
 .dashboard-header {
   background-color: var(--header-bg);
-  padding: 18px 32px;
+  padding: 14px 32px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   border-bottom: 3px solid transparent;
   border-image: var(--gradient-brand) 1;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+}
+
+.dashboard-header img {
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
 }
 
 .header-title {
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--header-text);
   margin: 0;
+  letter-spacing: 0.02em;
 }
 
 .header-subtitle {
-  color: rgba(255,255,255,0.55);
-  font-size: 12px;
+  color: rgba(255,255,255,0.50);
+  font-size: 11px;
   font-weight: 500;
   margin-top: 2px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* ── Contenido del slide ────────────────────────────────────────────────── */
@@ -329,7 +341,17 @@ body {
   background-color: transparent;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 18px 20px;
+  padding: 20px 24px;
+}
+
+.card-invisible p {
+  margin-bottom: 0;
+}
+
+/* ── Section banner ─────────────────────────────────────────────────────── */
+.card-filled-coral {
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* ── Dropdown ───────────────────────────────────────────────────────────── */
@@ -431,6 +453,42 @@ body {
 
 .fade-in {
   animation: fadeIn 0.35s ease both;
+}
+
+/* ── Home CTA ───────────────────────────────────────────────────────────── */
+.home-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gradient-brand);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 24px rgba(144,26,114,0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.home-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(144,26,114,0.50);
+  opacity: 0.92;
+  color: #fff;
+  text-decoration: none;
+}
+
+.home-cta .arrow {
+  font-size: 20px;
+  transition: transform 0.2s ease;
+}
+
+.home-cta:hover .arrow {
+  transform: translateX(4px);
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────────────────── */

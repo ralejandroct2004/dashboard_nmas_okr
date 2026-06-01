@@ -1,7 +1,6 @@
 import dash
 from dash import html
 import dash_bootstrap_components as dbc
-from transform_data_to_parquet import main
 
 app = dash.Dash(
     __name__,
@@ -20,5 +19,4 @@ app.layout = html.Div(
 server = app.server 
 
 if __name__ == "__main__":
-    main()
     app.run(debug=True)

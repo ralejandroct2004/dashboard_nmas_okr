@@ -22,20 +22,54 @@ df_semanas = get_ultimas_5_semanas()
 layout = html.Div(
     [
 # ====================================
+        html.Header(
+            [
+                html.Img(
+                    src='/assets/nmas_logo.png',
+                    style={'height': '44px', 'objectFit': 'contain'}
+                ),
+                html.Div([
+                    html.H1("Dashboard OKR", className="header-title"),
+                    html.P("Monitor de indicadores OKR", className="header-subtitle"),
+                ], style={'paddingTop': '15px'}),
+            ],
+            className="dashboard-header",
+            style={'margin': '-25px -25px 0 -25px'}
+        ),
+# ====================================
         dbc.Row(
             dbc.Col(
-                html.H1(
-                    'Información general', 
-                style = {'fontSize': '65px', 'fontWeight': '700'})
+                html.Div([
+                    html.P(
+                        "OKR — 2026",
+                        style={
+                            'fontSize': '12px', 'fontWeight': '600', 'letterSpacing': '0.18em',
+                            'textTransform': 'uppercase', 'color': 'var(--fuchsia)',
+                            'margin': '0 0 6px 0'
+                        }
+                    ),
+                    html.H1(
+                        'Información general',
+                        style={
+                            'fontSize': '52px', 'fontWeight': '800', 'margin': '0',
+                            'lineHeight': '1.1', 'color': 'var(--text-primary)',
+                            'letterSpacing': '-0.02em'
+                        }
+                    ),
+                    html.Div(style={
+                        'height': '4px', 'width': '160px', 'marginTop': '12px',
+                        'background': 'var(--gradient-brand)', 'borderRadius': '2px'
+                    })
+                ])
             , style = {'display': 'flex', 'flex': '1'})
-        , style = {'display': 'flex', 'height': '100px', 'paddingBottom': '110px'}),
+        , style = {'display': 'flex', 'height': '120px', 'paddingBottom': '90px'}),
 # ====================================
         dbc.Row(
             dbc.Col(
                 dbc.Card(
                     dbc.CardBody(
                         'Transmitidas y No transmitidas'
-                    , style = {'padding': '0', 'flex': '1', 'display': 'flex', 'textAlign': 'center', 'alignItems': 'center', 'justifyContent': 'center', 'fontSize': '20px', 'fontWeight': '800'})
+                    , style = {'padding': '0', 'flex': '1', 'display': 'flex', 'textAlign': 'center', 'alignItems': 'center', 'justifyContent': 'center', 'fontSize': '15px', 'fontWeight': '800'})
                 , style = {'flex': '1', 'display': 'flex'}
                 , className = 'card-filled-coral')
             , style = {'display': 'flex', 'flex': '1'})
@@ -99,7 +133,11 @@ layout = html.Div(
                                     , style = {'flex': '1', 'display': 'flex', 'flexDirection': 'column', 'gap': '5px'}),
                                 ]
                             , style = {'flex': '0 0 calc(20% - 8px)', 'display': 'flex', 'gap': '16px'}),
-                            dbc.Card(style = {'flex': '0 0 calc(80% - 8px)'}, className = 'card-invisible')
+                            dbc.Card(
+                                html.Div(id='desc_transmitidas', style={'padding': '18px'}),
+                                style={'flex': '0 0 calc(80% - 8px)'},
+                                className='card-invisible'
+                            )
                         ]
                     , style = {'display': 'flex', 'flex': '1', 'flexDirection': 'column', 'gap': '16px'})
                 , style = {'display': 'flex', 'flex': '1', 'height': '400px'})
@@ -111,7 +149,7 @@ layout = html.Div(
                 dbc.Card(
                     dbc.CardBody(
                         'Políticas y no políticas'
-                    , style = {'padding': '0', 'flex': '1', 'display': 'flex', 'textAlign': 'center', 'alignItems': 'center', 'justifyContent': 'center', 'fontSize': '20px', 'fontWeight': '800'})
+                    , style = {'padding': '0', 'flex': '1', 'display': 'flex', 'textAlign': 'center', 'alignItems': 'center', 'justifyContent': 'center', 'fontSize': '15px', 'fontWeight': '800'})
                 , style = {'flex': '1', 'display': 'flex'}
                 , className = 'card-filled-coral')
             , style = {'display': 'flex', 'flex': '1'})
@@ -175,7 +213,11 @@ layout = html.Div(
                                     , style = {'flex': '1', 'display': 'flex', 'flexDirection': 'column', 'gap': '5px'}),
                                 ]
                             , style = {'flex': '0 0 calc(20% - 8px)', 'display': 'flex', 'gap': '16px'}),
-                            dbc.Card(style = {'flex': '0 0 calc(80% - 8px)'}, className = 'card-invisible')
+                            dbc.Card(
+                                html.Div(id='desc_politicas', style={'padding': '18px'}),
+                                style={'flex': '0 0 calc(80% - 8px)'},
+                                className='card-invisible'
+                            )
                         ]
                     , style = {'display': 'flex', 'flex': '1', 'flexDirection': 'column', 'gap': '16px'})
                 , style = {'display': 'flex', 'flex': '1', 'height': '400px'})
@@ -204,7 +246,7 @@ layout = html.Div(
                 dbc.Card(
                     dbc.CardBody(
                         'Formatos y programas'
-                    , style = {'padding': '0', 'flex': '1', 'display': 'flex', 'textAlign': 'center', 'alignItems': 'center', 'justifyContent': 'center', 'fontSize': '20px', 'fontWeight': '800'})
+                    , style = {'padding': '0', 'flex': '1', 'display': 'flex', 'textAlign': 'center', 'alignItems': 'center', 'justifyContent': 'center', 'fontSize': '15px', 'fontWeight': '800'})
                 , style = {'flex': '1', 'display': 'flex'}
                 , className = 'card-filled-coral')
             , style = {'display': 'flex', 'flex': '1'})
@@ -260,7 +302,11 @@ layout = html.Div(
                                 , className = 'card-filled-fuchsia'),
                             ]
                         , style = {'flex': '0 0 calc(10% - 8px)', 'display': 'flex', 'flexDirection': 'column', 'gap': '5px'}),
-                        dbc.Card(style = {'flex': '0 0 calc(90% - 8px)'}, className = 'card-invisible')
+                        dbc.Card(
+                            html.Div(id='desc_formatos_programas', style={'padding': '18px'}),
+                            style={'flex': '0 0 calc(90% - 8px)'},
+                            className='card-invisible'
+                        )
                     ]
                 , style = {'display': 'flex', 'flex': '1', 'flexDirection': 'column','height': '600px', 'gap': '16px'})
             ]
@@ -375,3 +421,127 @@ def update_formatos_y_programa_plot(semana):
     fig2 = fig_formato_de_peticiones(df2)
 
     return fig1, fig2
+
+# ====================================
+
+def _span(text, color='var(--fuchsia)', bold=True):
+    return html.Span(text, style={'fontWeight': '700' if bold else '400', 'color': color})
+
+@dash.callback(
+    Output('desc_transmitidas', 'children'),
+    Input('transmitidas_y_no_transmitidas_dd_type', 'value'),
+    Input('transmitidas_y_no_transmitidas_dd_value', 'value'),
+    Input('transmitidas_y_no_transmitidas_dd_value', 'options'),
+)
+def update_desc_transmitidas(type_, value, options):
+    label = next((op['label'] for op in options if op['value'] == value), 'Histórico')
+    periodo = _span(label)
+
+    df = get_transmitidas_y_rechazadas(type_, value)
+    transmitidas = int(df['transmitidas'].sum())
+    no_transmitidas = int(df['no_transmitidas'].sum())
+    total = transmitidas + no_transmitidas
+
+    if type_ == 'historico':
+        texto = [
+            "En esta gráfica se muestra la distribución ", _span("histórica"), " de todas las peticiones registradas. "
+            "Se observa la proporción entre notas ", _span("transmitidas", 'var(--purple)'), " al aire "
+            "y notas ", _span("no transmitidas", 'var(--coral)'), " acumuladas en todo el período."
+        ]
+    else:
+        texto = [
+            "En esta gráfica se muestran las peticiones de ", periodo, ". "
+            "Se observa la proporción entre notas ", _span("transmitidas", 'var(--purple)'), " al aire "
+            "y notas ", _span("no transmitidas", 'var(--coral)'), " durante ese período."
+        ]
+
+    bullets = html.Ul([
+        html.Li([_span("Transmitidas: ", 'var(--purple)'), f"{transmitidas:,}"], style={'marginBottom': '4px'}),
+        html.Li([_span("No transmitidas: ", 'var(--coral)'), f"{no_transmitidas:,}"], style={'marginBottom': '4px'}),
+        html.Li([_span("Total: ", 'var(--fuchsia)'), f"{total:,}"]),
+    ], style={'fontSize': '15px', 'lineHeight': '1.9', 'color': 'var(--text-secondary)', 'marginTop': '12px', 'paddingLeft': '18px'})
+
+    return html.Div([
+        html.P(texto, style={'fontSize': '15px', 'lineHeight': '1.9', 'color': 'var(--text-secondary)', 'marginBottom': '0'}),
+        bullets
+    ])
+
+# ====================================
+
+@dash.callback(
+    Output('desc_politicas', 'children'),
+    Input('politicas_y_no_politicas_dd_type', 'value'),
+    Input('politicas_y_no_politicas_dd_value', 'value'),
+    Input('politicas_y_no_politicas_dd_value', 'options'),
+)
+def update_desc_politicas(type_, value, options):
+    label = next((op['label'] for op in options if op['value'] == value), 'Histórico')
+    periodo = _span(label)
+
+    df = get_politicas_y_no_politicas(type_, value)
+    politicas = int(df['politicas'].sum())
+    no_politicas = int(df['no_politicas'].sum())
+    total = politicas + no_politicas
+
+    if type_ == 'historico':
+        texto = [
+            "En esta gráfica se muestra la clasificación editorial ", _span("histórica"), " de todas las peticiones. "
+            "Se observa la proporción entre notas de ", _span("contenido político", 'var(--purple)'),
+            " y notas ", _span("no políticas", 'var(--coral)'), " acumuladas en todo el período."
+        ]
+    else:
+        texto = [
+            "En esta gráfica se muestra la clasificación editorial de ", periodo, ". "
+            "Se observa la proporción entre notas de ", _span("contenido político", 'var(--purple)'),
+            " y notas ", _span("no políticas", 'var(--coral)'), " durante ese período."
+        ]
+
+    bullets = html.Ul([
+        html.Li([_span("Políticas: ", 'var(--purple)'), f"{politicas:,}"], style={'marginBottom': '4px'}),
+        html.Li([_span("No políticas: ", 'var(--coral)'), f"{no_politicas:,}"], style={'marginBottom': '4px'}),
+        html.Li([_span("Total: ", 'var(--fuchsia)'), f"{total:,}"]),
+    ], style={'fontSize': '15px', 'lineHeight': '1.9', 'color': 'var(--text-secondary)', 'marginTop': '12px', 'paddingLeft': '18px'})
+
+    return html.Div([
+        html.P(texto, style={'fontSize': '15px', 'lineHeight': '1.9', 'color': 'var(--text-secondary)', 'marginBottom': '0'}),
+        bullets
+    ])
+
+# ====================================
+
+@dash.callback(
+    Output('desc_formatos_programas', 'children'),
+    Input('formatos_y_programas_dd', 'value'),
+)
+def update_desc_formatos_programas(semana):
+    semana_span = _span(f"semana {semana}") if semana else _span("la semana seleccionada")
+
+    return html.Div([
+        html.P(
+            _span("Peticiones por programa"),
+            style={'fontSize': '14px', 'marginBottom': '8px'}
+        ),
+        html.P(
+            [
+                "En esta gráfica se muestran los conteos de peticiones por programa de la ", semana_span,
+                ", ordenados de mayor a menor, con conteo lateral mostrando cuántas fueron ",
+                _span("transmitidas", 'var(--purple)'), ". Se observa qué programas concentran mayor demanda de cobertura."
+            ],
+            style={'fontSize': '15px', 'lineHeight': '1.9', 'color': 'var(--text-secondary)', 'marginBottom': '18px'}
+        ),
+        html.P(
+            _span("Formato de peticiones"),
+            style={'fontSize': '14px', 'marginBottom': '8px'}
+        ),
+        html.P(
+            [
+                "En esta gráfica se muestran los conteos de la ", semana_span,
+                " ordenados de mayor a menor, con conteo lateral mostrando cuántas fueron ",
+                _span("transmitidas", 'var(--purple)'), ". Se observa qué formatos son los más solicitados: ",
+                _span("VO", 'var(--purple)'), " (Texto + Imagen), ",
+                _span("LIVER", 'var(--purple)'), " (Enlace en vivo) y ",
+                _span("PKG", 'var(--purple)'), " (Nota)."
+            ],
+            style={'fontSize': '15px', 'lineHeight': '1.9', 'color': 'var(--text-secondary)'}
+        ),
+    ])
