@@ -514,34 +514,38 @@ def update_desc_politicas(type_, value, options):
     Input('formatos_y_programas_dd', 'value'),
 )
 def update_desc_formatos_programas(semana):
-    semana_span = _span(f"semana {semana}") if semana else _span("la semana seleccionada")
+    if semana is None:
+        return html.P("Selecciona una semana para ver el análisis.", style={'fontSize': '15px', 'color': 'var(--text-muted)'})
+
+    semana_span = _span(f"semana {semana}")
+
+    df_prog = get_peticiones_por_programa(semana).sort_values('peticiones', ascending=False)
+    df_fmt  = get_formato_de_peticiones(semana).sort_values('peticiones', ascending=False)
+
+    def top_items(df, col, n=3):
+        items = []
+        for _, row in df.head(n).iterrows():
+            items.append(html.Li([
+                _span(str(row[col]), 'var(--purple)'),
+                f": {int(row['peticiones']):,} peticiones ({int(row['transmitidas']):,} transmitidas)"
+            ], style={'marginBottom': '4px'}))
+        return items
+
+    estilo_p  = {'fontSize': '15px', 'lineHeight': '1.9', 'color': 'var(--text-secondary)', 'marginBottom': '4px'}
+    estilo_ul = {'fontSize': '15px', 'lineHeight': '1.9', 'color': 'var(--text-secondary)', 'marginBottom': '18px', 'paddingLeft': '18px'}
 
     return html.Div([
+        html.P(_span("Peticiones por programa"), style={'fontSize': '14px', 'marginBottom': '6px'}),
         html.P(
-            _span("Peticiones por programa"),
-            style={'fontSize': '14px', 'marginBottom': '8px'}
+            ["Conteos de la ", semana_span, " ordenados de mayor a menor con transmitidas por programa:"],
+            style=estilo_p
         ),
+        html.Ul(top_items(df_prog, 'programa'), style=estilo_ul),
+
+        html.P(_span("Formato de peticiones"), style={'fontSize': '14px', 'marginBottom': '6px'}),
         html.P(
-            [
-                "En esta gráfica se muestran los conteos de peticiones por programa de la ", semana_span,
-                ", ordenados de mayor a menor, con conteo lateral mostrando cuántas fueron ",
-                _span("transmitidas", 'var(--purple)'), ". Se observa qué programas concentran mayor demanda de cobertura."
-            ],
-            style={'fontSize': '15px', 'lineHeight': '1.9', 'color': 'var(--text-secondary)', 'marginBottom': '18px'}
+            ["Conteos de la ", semana_span, " ordenados de mayor a menor con transmitidas por formato:"],
+            style=estilo_p
         ),
-        html.P(
-            _span("Formato de peticiones"),
-            style={'fontSize': '14px', 'marginBottom': '8px'}
-        ),
-        html.P(
-            [
-                "En esta gráfica se muestran los conteos de la ", semana_span,
-                " ordenados de mayor a menor, con conteo lateral mostrando cuántas fueron ",
-                _span("transmitidas", 'var(--purple)'), ". Se observa qué formatos son los más solicitados: ",
-                _span("VO", 'var(--purple)'), " (Texto + Imagen), ",
-                _span("LIVER", 'var(--purple)'), " (Enlace en vivo) y ",
-                _span("PKG", 'var(--purple)'), " (Nota)."
-            ],
-            style={'fontSize': '15px', 'lineHeight': '1.9', 'color': 'var(--text-secondary)'}
-        ),
+        html.Ul(top_items(df_fmt, 'formato'), style={**estilo_ul, 'marginBottom': '0'}),
     ])
