@@ -6,7 +6,7 @@ app = dash.Dash(
     __name__,
     use_pages=True,
     external_stylesheets=[dbc.themes.BOOTSTRAP],
-    title="Laines Dashboard",
+    title = "OKR dashboard",
 )
 
 app.layout = html.Div(
