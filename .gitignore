@@ -4,3 +4,4 @@ __pycache__/
 *.pyo
 *.ipynb
 .env
+reports_agent
