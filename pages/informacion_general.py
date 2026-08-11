@@ -24,17 +24,32 @@ layout = html.Div(
 # ====================================
         html.Header(
             [
-                html.Img(
-                    src='/assets/nmas_logo.png',
-                    style={'height': '44px', 'objectFit': 'contain'}
-                ),
-                html.Div([
-                    html.H1("Dashboard OKR", className="header-title"),
-                    html.P("Monitor de indicadores OKR", className="header-subtitle"),
-                ], style={'paddingTop': '15px'}),
-            ],
-            className="dashboard-header",
-            style={'margin': '-25px -25px 0 -25px'}
+                dcc.Link(
+                    [
+                        html.Img(
+                            src='/assets/nmas_logo.png',
+                            style={'height': '44px', 'objectFit': 'contain'}
+                        ),
+                        html.Div([
+                            html.H1("Dashboard OKR", className="header-title"),
+                            html.P("Monitor de indicadores OKR", className="header-subtitle")
+                        ], style={'paddingTop': '15px'})
+                    ]
+                , href = '/'
+                , style = {'display': 'flex', 'alignItems': 'center', 'gap': '15px'}
+                , className = 'text-decoration-none'),
+                dbc.Button(
+                    [
+                        html.Span('⟳', className = 'icon'),
+                        html.Span('Recargar Datos')
+                    ],
+                    id = 'reload-data-btn',
+                    outline = True,
+                    className = 'btn-reload'
+                )
+            ]
+            , className="dashboard-header fade-in"
+            , style={'margin': '-25px -25px 0 -25px', 'justifyContent': 'space-between'}
         ),
 # ====================================
         dbc.Row(

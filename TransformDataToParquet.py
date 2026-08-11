@@ -15,7 +15,7 @@ def connect_with_sheets():
     ]
 
     creds = Credentials.from_service_account_file(
-        "credentials_sheets.json",
+        "google-credentials.json",
         scopes=scopes
     )
 
@@ -48,7 +48,7 @@ def connect_with_sheets():
 
 # ==================================================================
 
-def create_parquet_general(df_sheet, formato_cols, programa_cols, today):
+def create_parquet_general(df_sheet, formato_cols, programa_cols):
     conn = duckdb.connect()
     conn.register("df_sheet", df_sheet)
 
@@ -94,7 +94,7 @@ def create_parquet_general(df_sheet, formato_cols, programa_cols, today):
             UNION ALL
             (SELECT * FROM 'data/OKR_historic.parquet')
         )
-        TO 'data/OKR_data_{today}.parquet' (FORMAT PARQUET)
+        TO 'data/OKR_data.parquet' (FORMAT PARQUET)
         """
     )
 
@@ -102,7 +102,7 @@ def create_parquet_general(df_sheet, formato_cols, programa_cols, today):
 
 # ==================================================================
 
-def create_parquet_note(df_sheet, today):
+def create_parquet_note(df_sheet):
     conn = duckdb.connect()
     conn.register("df_sheet", df_sheet)
 
@@ -111,7 +111,7 @@ def create_parquet_note(df_sheet, today):
         COPY(
             SELECT * FROM df_sheet
         )
-        TO 'data/OKR_data_note_{today}.parquet' (FORMAT PARQUET)
+        TO 'data/OKR_data_note.parquet' (FORMAT PARQUET)
         """
     )
 
@@ -120,25 +120,19 @@ def create_parquet_note(df_sheet, today):
 # ==================================================================
 
 def main():
-    today = datetime.datetime.now().strftime('%d%m%Y')
-    df_sheet = None
+    file = 'OKR_data.parquet'
+    if os.path.exists(os.path.join('data', file)):
+        os.remove(f'data/{file}')
 
-    if not os.path.exists(f'data/OKR_data_{today}.parquet'):
-        file = next((file for file in os.listdir('data/') if 'OKR_data' in file), None)
-        if file is not None:
-            os.remove(f'data/{file}')
-        df_sheet, formato_cols, programa_cols = connect_with_sheets()
+    df_sheet, formato_cols, programa_cols = connect_with_sheets()
+    create_parquet_general(df_sheet, formato_cols, programa_cols)
 
-        create_parquet_general(df_sheet, formato_cols, programa_cols, today)
-
-    if not os.path.exists(f'data/OKR_data_note_{today}.parquet'):
-        file = next((file for file in os.listdir('data/') if 'OKR_data_note' in file), None)
-        if file is not None:
-            os.remove(f'data/{file}')
-        if df_sheet is None:
-            df_sheet, _, _ = connect_with_sheets()
+    file = 'OKR_data_note.parquet'
+    if os.path.exists(os.path.join('data', file)):
+        os.remove(f'data/{file}')
         
-        create_parquet_note(df_sheet, today)
+    df_sheet, _, _ = connect_with_sheets()
+    create_parquet_note(df_sheet)
 
 if __name__ == "__main__":
     main()

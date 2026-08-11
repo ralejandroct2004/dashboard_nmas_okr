@@ -491,6 +491,67 @@ body {
   transform: translateX(4px);
 }
 
+/* ── Botón de recarga (header oscuro) ───────────────────────────────────── */
+.btn-reload {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent !important;
+  color: rgba(255,255,255,0.88) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 9px 22px !important;
+  border: 1px solid rgba(255,255,255,0.28) !important;
+  border-radius: 50px !important;
+  box-shadow: none !important;
+  white-space: nowrap;
+  transition: background 0.2s ease, border-color 0.2s ease,
+              color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-reload:hover,
+.btn-reload:focus-visible {
+  background: var(--gradient-brand) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 18px rgba(144,26,114,0.45) !important;
+}
+
+.btn-reload:focus,
+.btn-reload:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(144,26,114,0.35) !important;
+}
+
+.btn-reload:active {
+  transform: translateY(0);
+  opacity: 0.9;
+}
+
+.btn-reload:disabled,
+.btn-reload.disabled {
+  background: transparent !important;
+  border-color: rgba(255,255,255,0.15) !important;
+  color: rgba(255,255,255,0.40) !important;
+  transform: none;
+  box-shadow: none !important;
+}
+
+/* Ícono opcional dentro del botón */
+.btn-reload .icon {
+  font-size: 14px;
+  line-height: 1;
+  transition: transform 0.45s ease;
+}
+
+.btn-reload:hover .icon {
+  transform: rotate(180deg);
+}
+
 /* ── Scrollbar ──────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
